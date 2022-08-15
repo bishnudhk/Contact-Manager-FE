@@ -2,7 +2,9 @@ import React from 'react'
 
 const LoginForm = () => {
   return (
-    <div>LoginForm</div>
+    <div>LoginForm
+      <h1>hello world</h1>
+    </div>
   )
 }
 
