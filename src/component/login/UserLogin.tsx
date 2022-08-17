@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import 'antd/dist/antd.css'
 
 const LoginForm = () => {
   const onFinish = (values: any) => {
