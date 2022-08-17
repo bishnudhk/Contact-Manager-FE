@@ -1,12 +1,15 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 import './App.css';
 
+import AppRoute from './route/AppRoute';
+
 function App() {
   return (
-    <div className="App">
-      <h1>head page</h1>
-    </div>
+    <BrowserRouter>
+    <AppRoute></AppRoute>
+    </BrowserRouter>
   );
 }
 
