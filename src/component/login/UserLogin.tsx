@@ -1,11 +1,28 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import 'antd/dist/antd.css'
+import * as http from "../../utils/http";
+import "antd/dist/antd.css";
 
-const LoginForm = () => {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+const LoginForm: React.FC = () => {
+  localStorage.removeItem("accessToken");
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
+  const onFinish = async (values: any) => {
+    // console.log("Success:", values);
+    // try {
+      // const res = await http.loginUser(values);
+      try {
+        // const accessToken = res.data.data.accessToken;
+        // localStorage.setItem("accessToken", accessToken);
+        form.resetFields();
+        navigate({pathname:"/"});
+      } catch (err) {
+        console.log(err);
+      }
+    // } catch (err) {
+      // console.log(err);
+    // }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -13,8 +30,8 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="login--container">
-      <h1 className="login--title">Sign in to Contact</h1>
+    <div className="container">
+      <h1 className="loginTitle">Sign in to Contact</h1>
       <div>
         <Form
           name="basic"

@@ -2,10 +2,24 @@ import React from "react";
 import { Button, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import "antd/dist/antd.css";
+import * as http from "../../utils/http"
 
-const UserRegister = () => {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+const UserRegister:React.FC = () => {
+    const [form] = Form.useForm();
+    const navigate = useNavigate();
+
+  const onFinish = async (values: any) => {
+    // console.log("Success:", values);
+    try{
+      //  const res = await http.registerUser(values);
+       form.resetFields();
+       
+       navigate({ pathname:"/login" });
+    }catch(err){
+        console.log(err);
+    }
+    
+    
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -22,7 +36,7 @@ const UserRegister = () => {
         autoComplete="off"
       >
          <Form.Item
-          label="First name"
+          label="First Name"
           name="firstName"
           rules={[
             { required: true, message: "Please input your First Name" },
@@ -30,6 +44,17 @@ const UserRegister = () => {
           ]}
         >
           <Input placeholder="David" />
+        </Form.Item>
+
+        <Form.Item
+          label="Last Name"
+          name="lastName"
+          rules={[
+            { required: true, message: "Please input your Last Name" },
+            
+          ]}
+        >
+          <Input placeholder="Beckham" />
         </Form.Item>
 
         <Form.Item
@@ -52,15 +77,15 @@ const UserRegister = () => {
 
         <Form.Item>
           <Button className="btn" type="primary" htmlType="submit">
-            Login
+            Register
           </Button>
         </Form.Item>
         <div>
           <hr />
         </div>
         <div className="login">
-          Dont' have an account?
-          <Link to="/register"> Sign up</Link>
+          Already have Account 
+          <Link to="/login"> Sign in</Link>
         </div>
       </Form>
     </div>
