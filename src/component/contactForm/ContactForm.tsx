@@ -1,33 +1,78 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import { Button, Form, Input, Switch, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
+import openNotification from "../../utils/notification";
+import * as http from "../../utils/http";
 
-const ContactForm = () => {
-    const [form] = Form.useForm();
-    const { id } = useParams();
-  
-    const navigate = useNavigate();
+interface ContactFormInterface {
+  update: boolean;
+}
 
-    const onFinish = async (values: any) => {
-        // console.log("Success:", values);
-        try{
-           
-           navigate({ pathname:"/" })
-        }catch(err){
-            console.log(err)
-        }
-        
-        
-      };
+const ContactForm = (props: ContactFormInterface) => {
+  const [form] = Form.useForm();
+  const { id } = useParams();
 
-    const onFinishFailed = (errorInfo: any) => {
-        console.log("Failed:", errorInfo);
-      };
+  const navigate = useNavigate();
+
+  // Get contact information for updating contact
+  useEffect(() => {
+    (async () => {
+      if (props.update) {
+        const res: any = await http.getContactById(+id!);
+        const contact = res.data.data;
+        form.setFieldsValue({
+          first_name: contact.first_name,
+          last_name: contact.last_name,
+          middle_name: contact.middle_name,
+          work: contact.work,
+          home: contact.home,
+          mobile: contact.mobile,
+          email: contact.email,
+          company: contact.company,
+          is_favourite: contact.is_favourite,
+        });
+      }
+    })();
+  }, [id, props.update, form]);
+
+  const onFinish = async (values: any) => {
+    const formData = new FormData();
+    formData.append("first_name", values.first_name);
+    formData.append("last_name", values.last_name);
+    values.middle_name && formData.append("middle_name", values.middle_name);
+    values.work && formData.append("work", values.work);
+    values.home && formData.append("home", values.home);
+    values.mobile && formData.append("mobile", values.mobile);
+    values.email && formData.append("email", values.email);
+    values.company && formData.append("company", values.company);
+    values.photo && formData.append("photo", values.photo.file.originFileObj);
+    formData.append("is_favourite", `${!!values.is_favourite}`);
+    try {
+      if (!props.update) {
+        const res = await http.addContact(formData);
+        openNotification(res.data.message);
+        // openNotification("update data");
+      } else {
+        const res = await http.updateContact(formData, id as string);
+        openNotification(res.data.message);
+        // openNotification("error");
+        console.log(res);
+      }
+      form.resetFields();
+      navigate({ pathname: "/" });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <div className="contactForm--container">
       <div className="contactForm--title">
-        {/* {props.update ? "Update Contact" : "Add Contact"} */}
+        {props.update ? "Update Contact" : "Add Contact"}
       </div>
       <div className="contactForm--wrapper">
         <Form
@@ -95,14 +140,13 @@ const ContactForm = () => {
           </Form.Item>
           <Form.Item>
             <Button className="btn" type="primary" htmlType="submit">
-              {/* {props.update ? "Update Contact" : "Add Contact"} */}
-              Add Contact
+              {props.update ? "Update Contact" : "Add Contact"}
             </Button>
           </Form.Item>
         </Form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ContactForm
+export default ContactForm;

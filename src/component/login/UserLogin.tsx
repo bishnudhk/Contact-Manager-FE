@@ -3,26 +3,30 @@ import { Button, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import * as http from "../../utils/http";
 import "antd/dist/antd.css";
+import openNotification from "../../utils/notification";
 
-const LoginForm: React.FC = () => {
+const UserLogin = () => {
   localStorage.removeItem("accessToken");
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const onFinish = async (values: any) => {
     // console.log("Success:", values);
-    // try {
-      // const res = await http.loginUser(values);
+    try {
+      const res = await http.loginUser(values);
       try {
-        // const accessToken = res.data.data.accessToken;
-        // localStorage.setItem("accessToken", accessToken);
+        // const res;
+        const accessToken = res.data.data.accessToken;
+        localStorage.setItem("accessToken", accessToken);
+        openNotification("Login successfull");
         form.resetFields();
         navigate({pathname:"/"});
       } catch (err) {
-        console.log(err);
+        openNotification("password or email dosnot match ");
       }
-    // } catch (err) {
-      // console.log(err);
-    // }
+    
+    } catch (err) {
+      openNotification("error login")
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -76,4 +80,4 @@ const LoginForm: React.FC = () => {
   );
 };
 
-export default LoginForm;
+export default UserLogin;
