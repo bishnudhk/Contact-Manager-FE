@@ -10,7 +10,7 @@ import HomePage from "../pages/home/HomePage";
 const AppRoute = () => {
   return (
     <Routes>
-      <Route path="/login" element={<UserLogin />}></Route>
+      <Route path="/login" element={<UserLogin/>}></Route>
       <Route path="/register" element={<UserRegister />}></Route>
       <Route path="/" element={<NavBar />}>
         <Route path="/" element={<HomePage />}></Route>
@@ -18,7 +18,7 @@ const AppRoute = () => {
        
       </Route>
       <Route path="/contact/add" 
-        element={<ContactForm />}>
+        element={<ContactForm update={false}/>}>
           
         </Route>
       
