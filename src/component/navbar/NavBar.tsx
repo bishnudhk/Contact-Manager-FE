@@ -1,5 +1,6 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import openNotification from "../../utils/notification";
+import './navbar.css'
 
 export const NavBar = () => {
   const handleLogout = () => {
@@ -25,6 +26,7 @@ export const NavBar = () => {
           </NavLink>
         </div>
       </div>
+      <Outlet/>
     </div>
   );
 };
