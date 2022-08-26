@@ -15,12 +15,12 @@ const AppRoute = () => {
       <Route path="/" element={<NavBar />}>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/contact" element={<HomePage />}></Route>
-       
-      </Route>
-      <Route path="/contact/add" 
+        <Route path="/contact/add" 
         element={<ContactForm update={false}/>}>
           
         </Route>
+      
+      </Route>
       
     </Routes>
   );

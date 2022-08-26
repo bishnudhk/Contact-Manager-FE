@@ -4,6 +4,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import openNotification from "../../utils/notification";
 import * as http from "../../utils/http";
+import './contactForm.css';
 
 interface ContactFormInterface {
   update: boolean;
@@ -19,7 +20,8 @@ const ContactForm = (props: ContactFormInterface) => {
   useEffect(() => {
     (async () => {
       if (props.update) {
-        const res: any = await http.getContactById(+id!);
+        const res:any= id;
+        // const res: any = await http.getContactById(+id!);
         const contact = res.data.data;
         form.setFieldsValue({
           first_name: contact.first_name,
@@ -50,14 +52,14 @@ const ContactForm = (props: ContactFormInterface) => {
     formData.append("is_favourite", `${!!values.is_favourite}`);
     try {
       if (!props.update) {
-        const res = await http.addContact(formData);
-        openNotification(res.data.message);
-        // openNotification("update data");
+        // const res = await http.addContact(formData);
+        // openNotification(res.data.message);
+        openNotification("update data");
       } else {
-        const res = await http.updateContact(formData, id as string);
-        openNotification(res.data.message);
-        // openNotification("error");
-        console.log(res);
+        // const res = await http.updateContact(formData, id as string);
+        // openNotification(res.data.message);
+        openNotification("error");
+        // console.log(res);
       }
       form.resetFields();
       navigate({ pathname: "/" });
@@ -70,11 +72,11 @@ const ContactForm = (props: ContactFormInterface) => {
     console.log("Failed:", errorInfo);
   };
   return (
-    <div className="contactForm--container">
-      <div className="contactForm--title">
+    <div className="contactFormContainer">
+      <div className="contactFormTitle">
         {props.update ? "Update Contact" : "Add Contact"}
       </div>
-      <div className="contactForm--wrapper">
+      <div className="contactFormWrapper">
         <Form
           form={form}
           layout="vertical"

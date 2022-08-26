@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as http from "../../utils/http";
 import "antd/dist/antd.css";
 import openNotification from "../../utils/notification";
+import './userLogin.css';
 
 const UserLogin = () => {
   localStorage.removeItem("accessToken");
@@ -12,11 +13,11 @@ const UserLogin = () => {
   const onFinish = async (values: any) => {
     // console.log("Success:", values);
     try {
-      const res = await http.loginUser(values);
+      // const res = await http.loginUser(values);
       try {
         // const res;
-        const accessToken = res.data.data.accessToken;
-        localStorage.setItem("accessToken", accessToken);
+        // const accessToken = res.data.data.accessToken;
+        // localStorage.setItem("accessToken", accessToken);
         openNotification("Login successfull");
         form.resetFields();
         navigate({pathname:"/"});

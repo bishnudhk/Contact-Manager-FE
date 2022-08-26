@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "antd/dist/antd.css";
 import * as http from "../../utils/http";
 import openNotification from "../../utils/notification";
+import './userRegister.css';
 
 const UserRegister: React.FC = () => {
   const [form] = Form.useForm();
@@ -12,12 +13,13 @@ const UserRegister: React.FC = () => {
   const onFinish = async (values: any) => {
     // console.log("Success:", values);
     try {
-      const res = await http.registerUser(values);
+      // const res = await http.registerUser(values);
       form.resetFields();
-      openNotification(res.data.message);
+      // openNotification(res.data.message);
+      openNotification("Register sucess");
       navigate({ pathname: "/login" });
     } catch (err) {
-      openNotification("Error during Notification");
+      openNotification("Error during Rregistration");
     }
   };
 
@@ -82,10 +84,10 @@ const UserRegister: React.FC = () => {
           </div>
           <div className="login">
             Already have Account
-            <Link to="/login"> Sign in</Link>
+            <Link to="/login" className="signIn"> Sign in</Link>
           </div>
         </Form>
-      </div>
+      </div>  
     </div>
   );
 };

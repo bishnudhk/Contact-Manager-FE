@@ -1,0 +1,43 @@
+
+.registerContainer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% ,-50%);
+    max-width: 450px;
+    width: 100%;
+    padding: 30px;
+    background-color:aliceblue;
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+}
+
+.registerTitle{
+    font-size: 35px;
+    text-align: center;
+}
+
+.login{
+    margin-top: 20px;
+    font-size: 20px;
+    /* margin: 12px; */
+    text-align: center;
+    padding: 30px;
+}
+.btn{
+    border-radius: 10px;
+    width: 100%;
+    
+
+}
+
+.btn:focus {
+    outline-color: transparent;
+    outline-style:solid;
+    box-shadow: 0 0 0 4px #5a01a7;
+}
+.signIn{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 20px;
+}

@@ -1,9 +1,10 @@
 import React from 'react'
 import ContactTable from '../../component/contactTable/contactTable'
+import './homePage.css';
 
 const HomePage:React.FC = () => {
   return (
-    <div className='table-container'>
+    <div className='tableContainer'>
       <ContactTable/>
     </div>
   )
