@@ -2,6 +2,7 @@ import axios from "axios";
 
 import User from "../domain/user";
 import { LoginDetail } from "../domain/user";
+axios.defaults.baseURL = "http://localhost:5001";
 
 export const getConfig = () =>{
     const accessToken = localStorage.getItem("accessToken");
@@ -14,6 +15,7 @@ export const getConfig = () =>{
 // create a new user 
 
 export const registerUser = async (user: User) => {
+  console.log(user);
     const res = await axios.post("/register", user);
     return res;
   };
@@ -37,9 +39,9 @@ export const registerUser = async (user: User) => {
 
   // Get contact by id
 
-  export const getContactById = async (contact_id: number) => {
+  export const getContactById = async (id: number) => {
     const config = getConfig();
-    const response = await axios.get(`/contact/${contact_id}`,config);
+    const response = await axios.get(`/contact/${id}`,config);
     return response;
   };
   
@@ -60,9 +62,9 @@ export const registerUser = async (user: User) => {
   };
 
   // delete 
-  export const deleteContact = async (contact_id: string) => {
+  export const deleteContact = async (id: string) => {
     const config = getConfig();
-    const response = await axios.delete(`/contact/${contact_id}`,config);
+    const response = await axios.delete(`/contact/${id}`,config);
     return response;
   };
 

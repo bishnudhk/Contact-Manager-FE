@@ -20,8 +20,8 @@ const ContactForm = (props: ContactFormInterface) => {
   useEffect(() => {
     (async () => {
       if (props.update) {
-        const res:any= id;
-        // const res: any = await http.getContactById(+id!);
+        // const res:any= id;
+        const res: any = await http.getContactById(+id!);
         const contact = res.data.data;
         form.setFieldsValue({
           first_name: contact.first_name,
@@ -52,14 +52,14 @@ const ContactForm = (props: ContactFormInterface) => {
     formData.append("is_favourite", `${!!values.is_favourite}`);
     try {
       if (!props.update) {
-        // const res = await http.addContact(formData);
-        // openNotification(res.data.message);
-        openNotification("update data");
+        const res = await http.addContact(formData);
+        openNotification(res.data.message);
+        // openNotification("update data");
       } else {
-        // const res = await http.updateContact(formData, id as string);
-        // openNotification(res.data.message);
+        const res = await http.updateContact(formData, id as string);
+        openNotification(res.data.message);
         openNotification("error");
-        // console.log(res);
+        console.log(res);
       }
       form.resetFields();
       navigate({ pathname: "/" });

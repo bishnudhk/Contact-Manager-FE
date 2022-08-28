@@ -11,11 +11,11 @@ const UserRegister: React.FC = () => {
   const navigate = useNavigate();
 
   const onFinish = async (values: any) => {
-    // console.log("Success:", values);
+    console.log("Success:", values);
     try {
-      // const res = await http.registerUser(values);
+      const res = await http.registerUser(values);
       form.resetFields();
-      // openNotification(res.data.message);
+      openNotification(res.data.message);
       openNotification("Register sucess");
       navigate({ pathname: "/login" });
     } catch (err) {
@@ -40,7 +40,7 @@ const UserRegister: React.FC = () => {
         >
           <Form.Item
             label="First Name"
-            name="firstName"
+            name="firstname"
             rules={[
               { required: true, message: "Please input your First Name" },
             ]}
@@ -50,7 +50,7 @@ const UserRegister: React.FC = () => {
 
           <Form.Item
             label="Last Name"
-            name="lastName"
+            name="lastname"
             rules={[{ required: true, message: "Please input your Last Name" }]}
           >
             <Input placeholder="Beckham" />

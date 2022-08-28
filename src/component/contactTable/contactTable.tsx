@@ -43,25 +43,25 @@ const ContactTable = () => {
   })();
   },[dispatch]);
 
-  const handleFavourite = async (is_favourite: boolean, contact_id: string) => {
+  const handleFavourite = async (is_favourite: boolean, contactid: string) => {
     const formData = new FormData();
     formData.append("is_favourite", `${!is_favourite}`);
-    // const res = await http.updateContact(formData,contact_id)
-    // const data = await http.getAllContact();
+    const res = await http.updateContact(formData,contactid)
+    const data = await http.getAllContact();
 
-    // const sortedContact = sortContact(data);
-    // dispatch(addContact(sortedContact));
-    dispatch(addContact);
-    // console.log(res);
+    const sortedContact = sortContact(data);
+    dispatch(addContact(sortedContact));
+    // dispatch(addContact);
+    console.log(res);
   };
 
-  const handleDeleteButton = async (contact_id: string) => {
-    // const res = await http.deleteContact(contact_id);
-    // const data = await http.getAllContact();
-    // dispatch(addContact(data));
-    dispatch(addContact);
-    // openNotification(res.data.message);
-    openNotification("update contact")
+  const handleDeleteButton = async (contactid: string) => {
+    const res = await http.deleteContact(contactid);
+    const data = await http.getAllContact();
+    dispatch(addContact(data));
+    // dispatch(addContact);
+    openNotification(res.data.message);
+    // openNotification("update contact")
   };
 
   return (
