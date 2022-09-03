@@ -22,13 +22,15 @@ const ContactForm = (props: ContactFormInterface) => {
       if (props.update) {
         // const res:any= id;
         const res: any = await http.getContactById(+id!);
+        console.log(res);
+        console.log(res.data);
         const contact = res.data.data;
         form.setFieldsValue({
           first_name: contact.first_name,
           last_name: contact.last_name,
           middle_name: contact.middle_name,
-          work: contact.work,
-          home: contact.home,
+          // work: contact.work,
+          // home: contact.home,
           mobile: contact.mobile,
           email: contact.email,
           company: contact.company,
@@ -43,29 +45,32 @@ const ContactForm = (props: ContactFormInterface) => {
     formData.append("first_name", values.first_name);
     formData.append("last_name", values.last_name);
     values.middle_name && formData.append("middle_name", values.middle_name);
-    values.work && formData.append("work", values.work);
-    values.home && formData.append("home", values.home);
+    // values.work && formData.append("work", values.work);
+    // values.home && formData.append("home", values.home);
     values.mobile && formData.append("mobile", values.mobile);
     values.email && formData.append("email", values.email);
     values.company && formData.append("company", values.company);
     values.photo && formData.append("photo", values.photo.file.originFileObj);
     formData.append("is_favourite", `${!!values.is_favourite}`);
+  
     try {
       if (!props.update) {
         const res = await http.addContact(formData);
+        // console.log(res); 
         openNotification(res.data.message);
         // openNotification("update data");
       } else {
         const res = await http.updateContact(formData, id as string);
         openNotification(res.data.message);
         openNotification("error");
-        console.log(res);
+        // console.log(res);
       }
       form.resetFields();
       navigate({ pathname: "/" });
     } catch (err) {
       console.log(err);
     }
+  
   };
 
   const onFinishFailed = (errorInfo: any) => {

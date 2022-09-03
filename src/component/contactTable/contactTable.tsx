@@ -35,10 +35,11 @@ const ContactTable = () => {
 
   useEffect(() =>{
   (async() => {
-  // const data = await http.getAllContact();
+  const data = await http.getAllContact();
  
-  // const sortedContact = sortContact(data);
-  // dispatch(addContact(sortedContact));
+  const sortedContact = sortContact(data);
+  dispatch(addContact(sortedContact));
+  console.log(data);
   dispatch(addContact);
   })();
   },[dispatch]);
@@ -48,7 +49,7 @@ const ContactTable = () => {
     formData.append("is_favourite", `${!is_favourite}`);
     const res = await http.updateContact(formData,contactid)
     const data = await http.getAllContact();
-
+    
     const sortedContact = sortContact(data);
     dispatch(addContact(sortedContact));
     // dispatch(addContact);
